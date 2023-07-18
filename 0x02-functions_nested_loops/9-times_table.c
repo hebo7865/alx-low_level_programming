@@ -15,7 +15,6 @@ void times_table(void)
 		{
 
 			s = (i * m);
-			_putchar(' ');
 
 			if ((s / 10) > 0)
 			{
@@ -27,6 +26,7 @@ void times_table(void)
 			}
 			_putchar((s % 10) + 48);
 			_putchar(',');
+			_putchar(' ');
 		}
 		_putchar('\n');
 	}
