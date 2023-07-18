@@ -16,12 +16,19 @@ void jack_bauer(void)
 			{
 				for (s = 48; s <= 57; s++)
 				{
+					if (h == 2 && o == 4)
+					{
+						break;
+					}
+					else
+					{
 					_putchar(h);
 					_putchar(o);
 					_putchar(':');
 					_putchar(m);
 					_putchar(s);
 					_putchar('\n');
+					}
 				}
 			}
 		}
