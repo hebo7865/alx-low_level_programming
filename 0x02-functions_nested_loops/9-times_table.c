@@ -18,13 +18,13 @@ void times_table(void)
 
 			s = (i * m);
 
-			if (s  <= 0)
+			if ((s / 10) > 0)
 			{
-				_putchar(' ');
+				_putchar((s / 10) + 48);
 			}
 			else
 			{
-				_putchar((s / 10) + 48);
+				_putchar(' ');
 			}
 			_putchar((s % 10) + 48);
 		}
