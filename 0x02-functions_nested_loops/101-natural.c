@@ -5,15 +5,20 @@
   */
 int main(void)
 {
-	int i, s;
+	int i, sum, sum3, sum5;
 
 	for (i = 0; i < 1024; i++)
 	{
-		if ((i % 3 == 0) || (i % 5 == 0))
+		if (i % 3 == 0)
 		{
-			s = s + i;
+			sum3 = sum3 + i;
 		}
-		printf("%i\n", s);
-		return (0);
+		else if (i % 5 == 0)
+		{
+			sum5 = sum5 + i;
+		}
 	}
+		sum = sum3 + sum5;
+		printf("%i\n", sum);
+		return (0);
 }
