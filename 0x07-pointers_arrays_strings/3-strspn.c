@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "main.h"
 /**
-  * int _strspn -  gets the length of a prefix substring
+  * _strspn -  gets the length of a prefix substring
   * @s: substring input
   * @accept: lenght of substring
   * Return: always 0
