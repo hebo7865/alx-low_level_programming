@@ -8,15 +8,12 @@
   */
 int main(int argc, char *argv[])
 {
-	int count;
+	int count = 0;
 
-	if (argc > 1)
+	while (argc--)
 	{
-		while (argc--)
-		{
-			printf("%s\n", argv[count]);
-			count++;
-		}
+		printf("%s\n", argv[count]);
+		count++;
 	}
 	return (0);
 }
