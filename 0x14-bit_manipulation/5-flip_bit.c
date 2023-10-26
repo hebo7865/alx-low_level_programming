@@ -18,7 +18,9 @@ unsigned int flip_bits(unsigned long int n, unsigned long int m)
 	{
 		curr = exec >> i;
 		if (curr & 1)
+		{
 			count++;
+		}
 	}
 	return (count);
 }
