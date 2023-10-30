@@ -24,7 +24,7 @@ int _strlen(char *s)
 /**
  * append_text_to_file - appends text at the end of a file
  * @filename: the name of the file
- * @textcontent: content of the file
+ * @text_content: content of the file
  * Return: 1 on success an -1 on fail
 */
 int append_text_to_file(const char *filename, char *text_content)
