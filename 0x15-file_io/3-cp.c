@@ -16,7 +16,7 @@ int main(int ac, char **av)
 {
 	int fr_fd = 0, t_fd = 0;
 	ssize_t byte;
-	char buff[READ_BUF_SIZE]
+	char buff[READ_BUF_SIZE];
 
 	if (ac != 3)
 	{
@@ -52,5 +52,5 @@ int main(int ac, char **av)
 	{
 		dprintf(STDERR_FILENO, ERR_NOCLOSE, fr_fd), exit(100);
 	}
-	return (EXIT_SUCCESS)
+	return (EXIT_SUCCESS);
 }
