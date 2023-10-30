@@ -1,56 +1,71 @@
 #include "main.h"
-
-#define USAGE "Usage: cp file_from file_to"
-#define ERR_NOREAD "Error: Can't read from file %s\n"
-#define ERR_NOWRITE "Error: Can't write to %s\n"
-#define ERR_NOCLOSE "Error: Can't close %s\n"
-#define PERMISSIONS (S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH)
+#include <stdio.h>
 
 /**
- * main - program
- * @ac: arg count
+ * error_file - checks if files can be opened.
+ * @fr_fd: file from
+ * @t_fd: file to
  * @av: arg vector
- * Return: 1 on success 0 on fail
-*/
-int main(int ac, char **av)
+ */
+void error_file(int fr_fd, int t_fd, char *av[])
 {
-	int fr_fd = 0, t_fd = 0;
-	ssize_t byte;
-	char buff[READ_BUF_SIZE];
-
-	if (ac != 3)
-	{
-		dprintf(STDERR_FILENO, USAGE), exit(97);
-	}
-	fr_fd = open(av[1], O_RDONLY);
 	if (fr_fd == -1)
 	{
-		dprintf(STDERR_FILENO, ERR_NOREAD, av[1]), exit(98);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
+		exit(98);
 	}
 	if (t_fd == -1)
 	{
-		dprintf(STDERR_FILENO, ERR_NOWRITE, av[2]), exit(99);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
+		exit(99);
 	}
-	while ((byte = read(fr_fd, buff, READ_BUF_SIZE)) > 0)
+}
+
+/**
+ * main - check the code for ALX students.
+ * @argc: number of arguments.
+ * @av: arguments vector.
+ * Return: Always 0.
+ */
+int main(int argc, char *av[])
+{
+	int fr_fd, t_fd, err_close;
+	ssize_t nchars, nwr;
+	char buf[1024];
+
+	if (argc != 3)
 	{
-		if (write(t_fd, buff, byte) != byte)
-		{
-			dprintf(STDERR_FILENO, ERR_NOWRITE, av[2]), exit(99);
-		}
+		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
+		exit(97);
 	}
-	if (byte == -1)
+
+	fr_fd = open(av[1], O_RDONLY);
+	t_fd = open(av[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
+	error_file(fr_fd, t_fd, av);
+
+	nchars = 1024;
+	while (nchars == 1024)
 	{
-		dprintf(STDERR_FILENO, ERR_NOREAD, av[1]), exit(98);
+		nchars = read(fr_fd, buf, 1024);
+		if (nchars == -1)
+			error_file(-1, 0, av);
+		nwr = write(t_fd, buf, nchars);
+		if (nwr == -1)
+			error_file(0, -1, av);
 	}
-	fr_fd = close(fr_fd);
-	t_fd = close(t_fd);
-	if (fr_fd)
+
+	err_close = close(fr_fd);
+	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, ERR_NOCLOSE, fr_fd), exit(100);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fr_fd);
+		exit(100);
 	}
-	if (t_fd)
+
+	err_close = close(t_fd);
+	if (err_close == -1)
 	{
-		dprintf(STDERR_FILENO, ERR_NOCLOSE, fr_fd), exit(100);
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fr_fd);
+		exit(100);
 	}
-	return (EXIT_SUCCESS);
+	return (0);
 }
