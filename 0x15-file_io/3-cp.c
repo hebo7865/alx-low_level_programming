@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 /**
- * error_file - checks if files can be opened.
+ * error_file - checks if files can be opened
  * @fr_fd: file from
  * @t_fd: file to
  * @av: arg vector
@@ -22,18 +22,18 @@ void error_file(int fr_fd, int t_fd, char *av[])
 }
 
 /**
- * main - check the code for ALX students.
- * @argc: number of arguments.
- * @av: arguments vector.
- * Return: Always 0.
+ * main - check the code for ALX students
+ * @ac: number of arguments
+ * @av: arguments vector
+ * Return: Always 0
  */
-int main(int argc, char *av[])
+int main(int ac, char *av[])
 {
-	int fr_fd, t_fd, err_close;
-	ssize_t nchars, nwr;
+	int fr_fd, t_fd, er_close;
+	ssize_t ncha, nwr;
 	char buf[1024];
 
-	if (argc != 3)
+	if (ac != 3)
 	{
 		dprintf(STDERR_FILENO, "%s\n", "Usage: cp file_from file_to");
 		exit(97);
@@ -43,26 +43,26 @@ int main(int argc, char *av[])
 	t_fd = open(av[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
 	error_file(fr_fd, t_fd, av);
 
-	nchars = 1024;
-	while (nchars == 1024)
+	ncha = 1024;
+	while (ncha == 1024)
 	{
-		nchars = read(fr_fd, buf, 1024);
-		if (nchars == -1)
+		ncha = read(fr_fd, buf, 1024);
+		if (ncha == -1)
 			error_file(-1, 0, av);
-		nwr = write(t_fd, buf, nchars);
+		nwr = write(t_fd, buf, ncha);
 		if (nwr == -1)
 			error_file(0, -1, av);
 	}
 
-	err_close = close(fr_fd);
-	if (err_close == -1)
+	er_close = close(fr_fd);
+	if (er_close == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fr_fd);
 		exit(100);
 	}
 
-	err_close = close(t_fd);
-	if (err_close == -1)
+	er_close = close(t_fd);
+	if (er_close == -1)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fr_fd);
 		exit(100);
